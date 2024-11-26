@@ -1,84 +1,56 @@
-# DL4DS Tutor 🏃
+<p align="center">
+  <a href="http://docs.edubotics.ai/">
+    <img src="https://github.com/edubotics-ai/.github/blob/main/assets/images/edubot-mascot.png?raw=true" alt="edubotics-ai" width="10%" height="10%">
+  </a>
+</p>
+<p align="center">
+    <em>Edubotics AI - Empower Education with AI: Create Intelligent Chatbots Quickly and Efficiently</em>
+</p>
+<p align="center">   
+  <a href="https://github.com/edubotics-ai/edubotics-app/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/edubotics-ai/edubotics-app.svg">
+  </a>
+  <img src="https://img.shields.io/github/stars/edubotics-ai/edubotics-app.svg">
+  <a href="https://discord.com/channels/1293271626036805653">
+    <img alt="Discord" src="https://img.shields.io/discord/1293271626036805653?style=flat&logo=discord&label=Discord">
+  </a>
 
-Check out the configuration reference at [Hugging Face Spaces Config Reference](https://huggingface.co/docs/hub/spaces-config-reference).
+</p>
 
-You can find an implementation of the Tutor at [DL4DS Tutor on Hugging Face](https://dl4ds-dl4ds-tutor.hf.space/), which is hosted on Hugging Face [here](https://huggingface.co/spaces/dl4ds/dl4ds_tutor).
+# Edubotics-Core Setup
 
-## Running Locally
+This repository is an example of how to build an application that incorporates the `edubotics-core` package. We suggest you fork this repository and
+then adapt it your application domain.
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/DL4DS/dl4ds_tutor
-   ```
+## Installation
 
-2. **Put your data under the `storage/data` directory**
-   - Add URLs in the `urls.txt` file.
-   - Add other PDF files in the `storage/data` directory.
-
-3. **To test Data Loading (Optional)**
-   ```bash
-   cd code
-   python -m modules.dataloader.data_loader
-   ```
-
-4. **Create the Vector Database**
-   ```bash
-   cd code
-   python -m modules.vectorstore.store_manager
-   ```
-   - Note: You need to run the above command when you add new data to the `storage/data` directory, or if the `storage/data/urls.txt` file is updated.
-   - Alternatively, you can set `["vectorstore"]["embedd_files"]` to `True` in the `code/modules/config/config.yaml` file, which will embed files from the storage directory every time you run the below chainlit command.
-
-5. **Run the Chainlit App**
-   ```bash
-   chainlit run main.py
-   ```
-
-See the [docs](https://github.com/DL4DS/dl4ds_tutor/tree/main/docs) for more information.
-
-## File Structure
-
-```plaintext
-code/
- ├── modules
- │   ├── chat                # Contains the chatbot implementation
- │   ├── chat_processor      # Contains the implementation to process and log the conversations
- │   ├── config              # Contains the configuration files
- │   ├── dataloader          # Contains the implementation to load the data from the storage directory
- │   ├── retriever           # Contains the implementation to create the retriever
- │   └── vectorstore         # Contains the implementation to create the vector database
- ├── public
- │   ├── logo_dark.png       # Dark theme logo
- │   ├── logo_light.png      # Light theme logo
- │   └── test.css            # Custom CSS file
- └── main.py
-
- 
-docs/                        # Contains the documentation to the codebase and methods used
-
-storage/
- ├── data                    # Store files and URLs here
- ├── logs                    # Logs directory, includes logs on vector DB creation, tutor logs, and chunks logged in JSON files
- └── models                  # Local LLMs are loaded from here
-
-vectorstores/                # Stores the created vector databases
-
-.env                         # This needs to be created, store the API keys here
-```
-- `code/modules/vectorstore/vectorstore.py`: Instantiates the `VectorStore` class to create the vector database.
-- `code/modules/vectorstore/store_manager.py`: Instantiates the `VectorStoreManager:` class to manage the vector database, and all associated methods.
-- `code/modules/retriever/retriever.py`: Instantiates the `Retriever` class to create the retriever.
-
-
-## Docker 
-
-The HuggingFace Space is built using the `Dockerfile` in the repository. To run it locally, use the `Dockerfile.dev` file.
+To install `edubotics-core`, run the following command:
 
 ```bash
-docker build --tag dev  -f Dockerfile.dev .
-docker run -it --rm -p 8051:8051 dev
+pip install edubotics-core
 ```
 
-## Contributing
+## Documentation
 
-Please create an issue if you have any suggestions or improvements, and start working on it by creating a branch and by making a pull request to the main branch.
+For detailed instructions on the initial setup (setting up .env file, required Keys, etc), please refer to our [documentation](http://docs.edubotics.ai).
+
+## Templates
+
+To get started, check out the templates located in the `apps/` directory.
+
+## Config Files
+
+- **config.yml**: This file controls various chatbot settings such as the default vector store and architecture type.
+- **project_config.yml**: Use this file to customize settings specific to your project.
+
+## Create Your Vectorstore
+
+Once you have set up your config files, you can create your vector store by running:
+
+```bash
+vectorstore_creator --config_file path_to_your_config.yml --project_config_file path_to_your_project_config.yml
+```
+
+## Start Your App
+
+After creating your vector store, you can start up your app and get going!
